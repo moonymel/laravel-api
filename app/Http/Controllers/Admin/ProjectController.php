@@ -111,7 +111,6 @@ class ProjectController extends Controller
         $form_data = $request->all();
 
         $exists = Project::where('title', '=', $form_data['title'])->where('id', '!=', $project->id)->get();
-
         if(count($exists) > 0){
             $error_message = 'This title is already used in another project!';
             return redirect()->route('admin.projects.edit', compact('project', 'error_message'));

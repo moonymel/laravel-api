@@ -17,10 +17,10 @@ class TypeSeeder extends Seeder
     {
         $types = [
             [
-                'name' => 'Singolo',
+                'name' => 'Single',
             ],
             [
-                'name' => 'Gruppo',
+                'name' => 'Group',
             ]
         ];
 

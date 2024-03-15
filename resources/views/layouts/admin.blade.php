@@ -22,9 +22,60 @@
 <body>
     <div id="app">
 
-        <header>
+        <header class="my-header">
 
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <nav>
+                <div class="container py-3">
+                    <div class="row justify-content-between">
+                        <div class="col-3 align-self-center">
+                            <img src="{{ Vite::asset('resources/img/BOOLFOLIO.png') }}" alt="">
+                        </div>
+                        <div class="col-6 align-self-center">
+                            <ul class="navbar-nav me-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-3 text-end">
+                            <ul class="navbar-nav ml-auto">
+                                <!-- Authentication Links -->
+                                @guest
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                                @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                                @endif
+                                @else
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }}
+                                    </a>
+        
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('admin.dashboard') }}">{{__('Dashboard')}}</a>
+                                        <a class="dropdown-item" href="{{ url('profile') }}">{{__('Profile')}}</a>
+                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                             document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+        
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                                @endguest
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
                     <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                         <div class="logo_laravel">
@@ -35,7 +86,7 @@
                             </svg>
                         </div>
                         {{-- config('app.name', 'Laravel') --}}
-                    </a>
+                    {{-- </a>
     
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
@@ -84,26 +135,43 @@
                         </ul>
                     </div>
                 </div>
-            </nav>
+            </nav> --}} 
 
         </header>
 
-        <main class="">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div>
-                            Dashboard
-                        </div>
-                        <div>
-                            <a href="{{ route('admin.projects.index') }}">Projects</a>
-                        </div>
+
+        <main>
+
+            <div class="main-container">
+
+                {{-- SIDEBAR  --}}
+                <div class="col-2 my-sidebar">
+                    
+                    {{-- SEZIONE ICONA --}}
+                    <div class="sidebar-head">
+                        <img class="icon" src="https://i.pinimg.com/564x/b9/2e/aa/b92eaa1cc4ecf6262706b33ad404cb40.jpg" alt="">
                     </div>
+
+                    {{-- SEZIONE VOCI MENU  --}}
+                    <div class="sidebar-menu p-5">
+                        <ul class="list-unstyled">
+                            <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                            <li><a href="{{ route('admin.projects.index') }}">Projects</a></li>
+                            <li><a href="{{ route('admin.technologies.index') }}">Technologies</a></li>
+                        </ul>
+                    </div>
+
                 </div>
+
+                {{-- CONTENUTO PAGINA  --}}
+                <div class="col-10 main-content p-4">
+                    @yield('content')
+                </div>
+                
             </div>
         </main>
-
-        @yield('content')
+        
+        
     </div>
 </body>
 

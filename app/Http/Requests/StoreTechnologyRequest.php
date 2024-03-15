@@ -13,7 +13,7 @@ class StoreTechnologyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class StoreTechnologyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique:technologies'
+        ];
+    }
+
+    public function messages(){
+        return [
+            'name.required' => 'Name section must be filled!',
+            'name.unique' => 'The name must be unique!'
         ];
     }
 }

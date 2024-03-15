@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Admin\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Technology;
 use App\Http\Requests\StoreTechnologyRequest;
 use App\Http\Requests\UpdateTechnologyRequest;
+use Illuminate\Support\Facades\Storage;
+
+use App\Http\Controllers\Controller;
 
 class TechnologyController extends Controller
 {
@@ -15,7 +18,9 @@ class TechnologyController extends Controller
      */
     public function index()
     {
-        //
+        $technologies = Technology::all();
+
+        return view('admin.technologies.index', compact('technologies'));
     }
 
     /**
@@ -25,7 +30,9 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        //
+        $technologies = Technology::all();
+
+        return view('admin.technologies.create', compact('technologies'));
     }
 
     /**
@@ -36,7 +43,12 @@ class TechnologyController extends Controller
      */
     public function store(StoreTechnologyRequest $request)
     {
-        //
+        $form_data = $request->all();
+        $technology = new Technology();
+        $technology->fill($form_data);
+        $technology->save();
+
+        return redirect()->route('admin.technologies.index');
     }
 
     /**
@@ -58,7 +70,7 @@ class TechnologyController extends Controller
      */
     public function edit(Technology $technology)
     {
-        //
+        return view('admin.technologies.edit', compact('technology'));
     }
 
     /**
@@ -70,7 +82,18 @@ class TechnologyController extends Controller
      */
     public function update(UpdateTechnologyRequest $request, Technology $technology)
     {
-        //
+        $form_data = $request->all();
+
+        $exists = Technology::where('name', '=', $form_data['name'])->where('id', '!=', $technology->id)->get();
+
+        if(count($exists) > 0){
+            $error_message = 'This name is already used in another technology!';
+            return redirect()->route('admin.technologies.edit', compact('technology', 'error_message'));
+        }
+
+        $technology->update($form_data);
+
+        return redirect()->route('admin.technologies.index', ['technology' => $technology->id]);
     }
 
     /**
@@ -81,6 +104,7 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-        //
+        $technology->delete();
+        return redirect()->route('admin.technologies.index');
     }
 }

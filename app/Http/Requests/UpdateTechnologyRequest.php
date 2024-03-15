@@ -13,7 +13,7 @@ class UpdateTechnologyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class UpdateTechnologyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required'
+        ];
+    }
+
+    public function messages(){
+        return [
+            'name.required' => 'Name section must be filled!'        
         ];
     }
 }
