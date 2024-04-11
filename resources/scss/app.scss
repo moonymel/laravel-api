@@ -6,7 +6,7 @@
 $beige_dark: #E3E1D9;
 $beige_light: #F2EFE5;
 $grey_dark: #B4B4B8;
-$grey_light: #C7C8CC;
+$grey_light: #F8F8F8;
 
 
 * {
@@ -19,14 +19,6 @@ $grey_light: #C7C8CC;
 a {
     text-decoration: none;
     color: #000;
-}
-
-.image-sec {
-    width: 200px;
-
-    img {
-        width: 100%
-    }
 }
 
 .main-container {
@@ -43,6 +35,11 @@ a {
     img {
         height: 40px;
         opacity: 0.8;
+    }
+
+    li {
+        display: inline-block;
+        margin: 0px 10px;
     }
 
 }
@@ -120,4 +117,48 @@ a {
 
 .my-thead {
     text-transform: uppercase;
+}
+
+
+// SHOW PAGE
+.image-sec {
+    width: 300px;
+
+    img {
+        width: 100%
+    }
+}
+
+
+// WELCOME PAGE
+.wel-cont {
+    margin-top: 40px;
+
+    .wel-title {
+        font-size: 50px;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 5px;
+    }
+
+    .wel-sub {
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+    }
+
+    .wel-card {
+        background-color: $grey_light;
+        border-radius: 10px;
+        border: 1px solid $grey_dark;
+        padding: 20px;
+        text-align: justify;
+
+        .wel-card-tit {
+            text-transform: uppercase;
+            font-size: 17px;
+            background-color: $beige_light;
+            padding: 0px 20px;
+        }
+    }
 }

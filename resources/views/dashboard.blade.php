@@ -2,13 +2,15 @@
 
 @section('content')
 <div class="container">
-    <h2 class="fs-4 text-secondary my-4">
-        {{ __('Dashboard') }}
-    </h2>
-    <div class="row justify-content-center">
-        <div class="col">
+    <div class="row my-4 justify-content-center">
+        <div class="col-12 my-3">
+            <div class="index-title">
+                Welcome to your account!
+            </div>
+        </div>
+        <div class="col-12">
             <div class="card">
-                <div class="card-header">{{ __('User Dashboard') }}</div>
+                <div class="card-header">{{ __('User Status') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -22,5 +24,6 @@
             </div>
         </div>
     </div>
+
 </div>
 @endsection
